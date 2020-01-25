@@ -15,7 +15,7 @@ def match_fuzzy(text,text_list,score):
     if Ratio[1] > score:
         return Ratio[0]
     else :
-        return None
+        return False
     
 # str2Match = "apple inc"
 # strOptions = ["Apple Inc.","apple park","apple incorporated","iphone"]

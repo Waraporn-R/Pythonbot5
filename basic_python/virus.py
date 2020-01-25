@@ -1,3 +1,63 @@
+# from match_fuzzy import match_fuzzy
+# Virus_database =    {
+#                     "Corona SARS" : {"ระบาดใน":"ไทย" 
+#                                   , "จำนวนคนที่ติดเชื้อ" : 100 
+#                                   , "จำนวนคนเสียชีวิต" : 20 }
+#                     ,"Corona MERS" : {"ระบาดใน":"ญี่ปุ่น" 
+#                                   , "จำนวนคนที่ติดเชื้อ" : 80 
+#                                   , "จำนวนคนเสียชีวิต" : 10 }
+#                 }
+
+# Virus_names = Virus_database.keys() # get list of Virus Name
+
+# print("ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก")
+# while True:
+#     คำสั่ง = str(input("กรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
+#     if คำสั่ง == "1":
+#         ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
+#         ระบาดใน = input("กรอกบริเวณที่ระบาด")
+#         จำนวนคนที่ติดเชื้อ = input("กรอกจำนวนคนที่ติดเชื้อ")
+#         จำนวนคนเสียชีวิต = input("กรอกจำนวนคนเสียชีวิต")
+#         Virus_database[ชื่อไวรัส] = {"ระบาดใน":ระบาดใน 
+#                                   , "จำนวนคนที่ติดเชื้อ" : จำนวนคนที่ติดเชื้อ 
+#                                   , "จำนวนคนเสียชีวิต" : จำนวนคนเสียชีวิต }
+#         print("ท่านได้ทำการเพิ่มข้อมูลไวรัส :",ชื่อไวรัส)
+#     elif คำสั่ง == "2":
+#         ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
+#         ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
+#         try:
+#             Virus_database.pop(ชื่อไวรัส)
+#             print("ท่านได้ทำการลบข้อมูลไวรัส : ", ชื่อไวรัส)
+#         except:
+#             print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
+    
+#     elif คำสั่ง == "3": #update ข้อมูลไวรัส
+#         ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
+#         ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
+#         try:
+#             Virus_database[ชื่อไวรัส][ระบาดใน] = input("ระบุบริเวณที่ระบาด")
+#             Virus_database[ชื่อไวรัส][จำนวนคนที่ติดเชื้อ] = input("ระบุจำนวนคนที่ติดเชื้อ")
+#             Virus_database[ชื่อไวรัส][จำนวนคนเสียชีวิต] = input("ระบุจำนวนคนเสียชีวิต")
+            
+#             print("ท่านได้ทำการลบข้อมูลไวรัส : ", ชื่อไวรัส)
+#         except:
+#             print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
+    
+#     elif คำสั่ง == "4":
+#         ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
+#         ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
+#         try:
+#             print("พบชื่อไวรัสที่ท่านทำการค้นหา")
+#             print(Virus_database[ชื่อไวรัส])
+#         except:
+#             print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
+            
+#     else:
+#         print(Virus_database)
+#         break
+
+
+user_database = {}
 from match_fuzzy import match_fuzzy
 Virus_database =    {
                     "Corona SARS" : {"ระบาดใน":"ไทย" 
@@ -8,51 +68,115 @@ Virus_database =    {
                                   , "จำนวนคนเสียชีวิต" : 10 }
                 }
 
-Virus_names = Virus_database.keys() # get list of Virus Name
+Virus_names = Virus_database.keys()
 
-print("ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก")
-while True:
-    คำสั่ง = str(input("กรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
-    if คำสั่ง == "1":
-        ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
-        ระบาดใน = input("กรอกบริเวณที่ระบาด")
-        จำนวนคนที่ติดเชื้อ = input("กรอกจำนวนคนที่ติดเชื้อ")
-        จำนวนคนเสียชีวิต = input("กรอกจำนวนคนเสียชีวิต")
-        Virus_database[ชื่อไวรัส] = {"ระบาดใน":ระบาดใน 
-                                  , "จำนวนคนที่ติดเชื้อ" : จำนวนคนที่ติดเชื้อ 
-                                  , "จำนวนคนเสียชีวิต" : จำนวนคนเสียชีวิต }
-        print("ท่านได้ทำการเพิ่มข้อมูลไวรัส :",ชื่อไวรัส)
-    elif คำสั่ง == "2":
-        ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
-        ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
-        try:
-            Virus_database.pop(ชื่อไวรัส)
-            print("ท่านได้ทำการลบข้อมูลไวรัส : ", ชื่อไวรัส)
-        except:
-            print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
+
+def virus_app(userid , text_input):
+    if userid not in user_database.keys():
+        user_database[userid] = {"session":None,"ชื่อของไวรัส":None}
     
-    elif คำสั่ง == "3": #update ข้อมูลไวรัส
-        ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
-        ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
-        try:
-            Virus_database[ชื่อไวรัส][ระบาดใน] = input("ระบุบริเวณที่ระบาด")
-            Virus_database[ชื่อไวรัส][จำนวนคนที่ติดเชื้อ] = input("ระบุจำนวนคนที่ติดเชื้อ")
-            Virus_database[ชื่อไวรัส][จำนวนคนเสียชีวิต] = input("ระบุจำนวนคนเสียชีวิต")
-            
-            print("ท่านได้ทำการลบข้อมูลไวรัส : ", ชื่อไวรัส)
-        except:
-            print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
+    if user_database[userid] is None:
+        if text_input == "1":
+            user_database[userid]["session"] = "CREATE_VIRUS"  
+            return "กรุณาระบุชื่อไวรัส"
+        
+        elif text_input == "2":
+            user_database[userid]["session"] = "DELETE_VIRUS"
+            return "กรุณาระบุชื่อไวรัส"
+        
+        elif text_input == "3":
+            user_database[userid]["session"] = "UPDATE_VIRUS"
+            return "กรุณาระบุชื่อไวรัส"
+        
+        elif text_input == "4":
+            user_database[userid]["session"] = "SHOW_VIRUS"
+            return "กรุณาระบุชื่อไวรัส"
+        
+        else :
+            return "กรุณากรอกตัวเลขใหม่ด้วยคะ คำสั่ง 1-4"
+        
+    elif user_database[userid] == "DELETE_VIRUS":
+        ## validate (text from user)
+        if match_fuzzy(text_input,Virus_names,score = 50):
+            ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
+            ## update
+            Virus_database.pop(ชื่อของไวรัส)
+            user_database[userid]["session"] = None  
+            ## output
+            return "ท่านได้ทำการลบข้อมูลของไวรัส {}".format(ชื่อของไวรัส)
+        else:
+            return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
     
-    elif คำสั่ง == "4":
-        ชื่อไวรัส = input("กรุณาพิมพ์ชื่อไวรัส")
-        ชื่อไวรัส = match_fuzzy(ชื่อไวรัส,Virus_names,score=50)
-        try:
-            print("พบชื่อไวรัสที่ท่านทำการค้นหา")
-            print(Virus_database[ชื่อไวรัส])
-        except:
-            print("เกิดข้อผิดพลาด ไม่พบชื่อไวรัสดังกล่าว")
-            
-    else:
-        print(Virus_database)
-        break
+    elif user_database[userid] == "SHOW_VIRUS":
+        ## validate (text from user)
+        if match_fuzzy(text_input,Virus_names,score = 50):
+            ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
+            ## update
+            Data_To_Show = Virus_database[ชื่อของไวรัส]
+            user_database[userid]["session"] = None  
+            ## output
+            return "นี้คือข้อมูลของไวรัส {} มีข้อมูลดังนี้\n{}".format(ชื่อของไวรัส,Data_To_Show)
+        else:
+            return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
+        
+    ## check-intent
+    elif user_database[userid] == "CREATE_VIRUS":
+        ## validate (text from user)
+        if match_fuzzy(text_input,Virus_names,score = 50):
+            ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
+            ## update
+            user_database[userid]["ชื่อของไวรัส"] = ชื่อของไวรัส
+            Virus_database[ชื่อของไวรัส] = {}
+            user_database[userid]["session"] = "INPUT_VIRUS_DATA_AREA"  ### ใส่ข้อมูลของ ไวรัส
+            ## output
+            return "กรุณากรอกข้อมูล บริเวณที่ระบาด ของไวรัสด้วยค่ะ"
+        else:
+            return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
+    
+    ## check-intent
+    elif user_database[userid] == "๊UPDATE_VIRUS":
+        ## validate (text from user)
+        if match_fuzzy(text_input,Virus_names,score = 50):
+            ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
+            ## update
+            user_database[userid]["ชื่อของไวรัส"] = ชื่อของไวรัส
+            Virus_database[ชื่อของไวรัส] = {}
+            user_database[userid]["session"] = "INPUT_VIRUS_DATA_AREA"  ### ใส่ข้อมูลของ ไวรัส
+            ## output
+            return "กรุณากรอกข้อมูล บริเวณที่ระบาด ของไวรัสด้วยค่ะ"
+        else:
+            return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
+        
+    ## check-intent
+    elif user_database[userid] == "INPUT_VIRUS_DATA_AREA":
+        ## update
+        ชื่อของไวรัส = user_database[userid]["ชื่อของไวรัส"]
+        Virus_database[ชื่อของไวรัส]["ระบาดใน"] = text_input
+        user_database[userid]["session"] = "INPUT_VIRUS_DATA_INFECTED"
+        ## output
+        return "กรุณากรอกข้อมูล จำนวนผู้ติดเชื้อ ของไวรัสด้วยค่ะ (ระบุเป็นตัวเลขเท่านั้น)"
+ 
+    ## check-intent
+    elif user_database[userid] == "INPUT_VIRUS_DATA_INFECTED":
+        ## validate (text from user)
+        if text_input.isdigit():
+            ## get data from user
+            ชื่อของไวรัส = user_database[userid]["ชื่อของไวรัส"]
+            ## update
+            Virus_database[ชื่อของไวรัส]["จำนวนผู้ติดเชื้อ"] = text_input
+            user_database[userid]["session"] = "INPUT_VIRUS_DATA_DEAD"
+            ## output
+            return "กรุณากรอกข้อมูล จำนวนผู้เสียชีวิต ของไวรัสด้วยค่ะ (ระบุเป็นตัวเลขเท่านั้น)"  
+        else :
+            return "กรุณาระบุตัวเลขผู้ติดเชื้อใหม่อีกครั้งคะ" 
+    
+   elif user_database[userid] == "INPUT_VIRUS_DATA_DEAD":
+        if text_input.isdigit():
+            ชื่อของไวรัส = user_database[userid]["ชื่อของไวรัส"]
+            Virus_database[ชื่อของไวรัส]["จำนวนผู้เสียชีวิต"] = text_input
+            user_database[userid]["session"] = None
+            return "ท่านได้สร้างข้อมูลไวรัส เสร็จแล้วเรียบร้อย"
+        else :
+            return "กรุณาระบุตัวเลขผู้ติดเสียชีวิตอีกครั้งคะ" 
+        
         

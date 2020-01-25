@@ -39,14 +39,15 @@ def handle_message(event):
     REPLYTOKEN = event.reply_token
     TEXT_FROM_USER = event.message.text
     USER_ID = event.source.user_id
-    print(REPLYTOKEN ,"  -  ", TEXT_FROM_USER ,"  -  ", USER_ID)
+    # print(REPLYTOKEN ,"  -  ", TEXT_FROM_USER ,"  -  ", USER_ID)
+    # process text and return text to reply
     line_bot_api.reply_message(event.reply_token
                                ,TextSendMessage(text=event.message.text))
 
 @handler.add(FollowEvent)
 def greeting(event):
     line_bot_api.reply_message(event.reply_token
-                               ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก"))
+                               ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
 
 if __name__ == "__main__":
     app.run()
