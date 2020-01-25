@@ -58,7 +58,7 @@
 
 
 user_database = {}
-from match_fuzzy import match_fuzzy
+from .match_fuzzy import match_fuzzy
 Virus_database =    {
                     "Corona SARS" : {"ระบาดใน":"ไทย" 
                                   , "จำนวนคนที่ติดเชื้อ" : 100 
@@ -74,8 +74,8 @@ Virus_names = Virus_database.keys()
 def virus_app(userid , text_input):
     if userid not in user_database.keys():
         user_database[userid] = {"session":None,"ชื่อของไวรัส":None}
-    
-    if user_database[userid] is None:
+
+    if user_database[userid]["session"] is None:
         if text_input == "1":
             user_database[userid]["session"] = "CREATE_VIRUS"  
             return "กรุณาระบุชื่อไวรัส"
@@ -90,12 +90,13 @@ def virus_app(userid , text_input):
         
         elif text_input == "4":
             user_database[userid]["session"] = "SHOW_VIRUS"
+            print("hello")
             return "กรุณาระบุชื่อไวรัส"
         
         else :
             return "กรุณากรอกตัวเลขใหม่ด้วยคะ คำสั่ง 1-4"
         
-    elif user_database[userid] == "DELETE_VIRUS":
+    elif user_database[userid]["session"] == "DELETE_VIRUS":
         ## validate (text from user)
         if match_fuzzy(text_input,Virus_names,score = 50):
             ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
@@ -103,11 +104,11 @@ def virus_app(userid , text_input):
             Virus_database.pop(ชื่อของไวรัส)
             user_database[userid]["session"] = None  
             ## output
-            return "ท่านได้ทำการลบข้อมูลของไวรัส {}".format(ชื่อของไวรัส)
+            return "ท่านได้ทำการลบข้อมูลของไวรัส {} สามารถตรวจสอบได้ที่ http://127.0.0.1:5000/".format(ชื่อของไวรัส)
         else:
             return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
     
-    elif user_database[userid] == "SHOW_VIRUS":
+    elif user_database[userid]["session"] == "SHOW_VIRUS":
         ## validate (text from user)
         if match_fuzzy(text_input,Virus_names,score = 50):
             ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
@@ -115,15 +116,15 @@ def virus_app(userid , text_input):
             Data_To_Show = Virus_database[ชื่อของไวรัส]
             user_database[userid]["session"] = None  
             ## output
-            return "นี้คือข้อมูลของไวรัส {} มีข้อมูลดังนี้\n{}".format(ชื่อของไวรัส,Data_To_Show)
+            return "นี้คือข้อมูลของไวรัส {} มีข้อมูลดังนี้\n{} สามารถตรวจสอบได้ที่ http://127.0.0.1:5000/".format(ชื่อของไวรัส,Data_To_Show)
         else:
             return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
         
     ## check-intent
-    elif user_database[userid] == "CREATE_VIRUS":
+    elif user_database[userid]["session"] == "CREATE_VIRUS":
         ## validate (text from user)
-        if match_fuzzy(text_input,Virus_names,score = 50):
-            ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
+        if True:
+            ชื่อของไวรัส = text_input
             ## update
             user_database[userid]["ชื่อของไวรัส"] = ชื่อของไวรัส
             Virus_database[ชื่อของไวรัส] = {}
@@ -134,7 +135,7 @@ def virus_app(userid , text_input):
             return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
     
     ## check-intent
-    elif user_database[userid] == "๊UPDATE_VIRUS":
+    elif user_database[userid]["session"] == "๊UPDATE_VIRUS":
         ## validate (text from user)
         if match_fuzzy(text_input,Virus_names,score = 50):
             ชื่อของไวรัส = match_fuzzy(text_input,Virus_names,score = 50)
@@ -148,7 +149,7 @@ def virus_app(userid , text_input):
             return "กรุณากรอกชื่อไวรัสใหม่อีกครั้งคะ"
         
     ## check-intent
-    elif user_database[userid] == "INPUT_VIRUS_DATA_AREA":
+    elif user_database[userid]["session"] == "INPUT_VIRUS_DATA_AREA":
         ## update
         ชื่อของไวรัส = user_database[userid]["ชื่อของไวรัส"]
         Virus_database[ชื่อของไวรัส]["ระบาดใน"] = text_input
@@ -157,7 +158,7 @@ def virus_app(userid , text_input):
         return "กรุณากรอกข้อมูล จำนวนผู้ติดเชื้อ ของไวรัสด้วยค่ะ (ระบุเป็นตัวเลขเท่านั้น)"
  
     ## check-intent
-    elif user_database[userid] == "INPUT_VIRUS_DATA_INFECTED":
+    elif user_database[userid]["session"] == "INPUT_VIRUS_DATA_INFECTED":
         ## validate (text from user)
         if text_input.isdigit():
             ## get data from user
@@ -170,7 +171,7 @@ def virus_app(userid , text_input):
         else :
             return "กรุณาระบุตัวเลขผู้ติดเชื้อใหม่อีกครั้งคะ" 
     
-   elif user_database[userid] == "INPUT_VIRUS_DATA_DEAD":
+    elif user_database[userid]["session"] == "INPUT_VIRUS_DATA_DEAD":
         if text_input.isdigit():
             ชื่อของไวรัส = user_database[userid]["ชื่อของไวรัส"]
             Virus_database[ชื่อของไวรัส]["จำนวนผู้เสียชีวิต"] = text_input

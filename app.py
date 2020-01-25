@@ -1,4 +1,4 @@
-from flask import Flask, request, abort
+from flask import Flask, request, abort , render_template
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -13,6 +13,14 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi(access_token) #channel access token
 handler = WebhookHandler(channel_secret) #channel secret
+
+
+from basic_python.virus import Virus_database
+@app.route("/")
+def index():
+    return render_template("index.html",viruses=Virus_database)
+
+
 
 
 @app.route("/callback", methods=['POST'])
@@ -42,13 +50,19 @@ def handle_message(event):
     # print(REPLYTOKEN ,"  -  ", TEXT_FROM_USER ,"  -  ", USER_ID)
     # process text and return text to reply
     TEXT_TO_REPLY = virus_app(userid=USER_ID,text_input=TEXT_FROM_USER)
+    print(TEXT_TO_REPLY)
     line_bot_api.reply_message(event.reply_token
                                ,TextSendMessage(text=TEXT_TO_REPLY))
 
 @handler.add(FollowEvent)
 def greeting(event):
     line_bot_api.reply_message(event.reply_token
-                               ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
+                             ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
+
+
+
 
 if __name__ == "__main__":
     app.run()
+    
+
