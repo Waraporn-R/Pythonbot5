@@ -64,7 +64,7 @@ Virus_database = {
                     ,"Corona MERS" : {"ระบาดใน":"ญี่ปุ่น" 
                                   , "จำนวนคนที่ติดเชื้อ" : 80 
                                   , "จำนวนคนเสียชีวิต" : 10 }
-                  }
+                }
 
 # for key,value in Virus_database.items():
 #     print(key)
@@ -75,5 +75,30 @@ new_virus = {"ระบาดใน":"จีน"
                      , "จำนวนคนเสียชีวิต" : 40 }
 
 Virus_database["Corona wuhan"] = new_virus
-print(Virus_database["Corona wuhan"])
+# print(Virus_database["Corona wuhan"])
+
+#while loop 
+# if else
+
+# ติดเชื้อ = "ติดเชื้อ"  #boolean True False  # 0 =ติดเชื้อ , 1 = ไม่มีเชื้อ , 2 = ยังไม่ตรวจ
+
+# if ติดเชื้อ == "ติดเชื้อ":
+#     print("ติดต่อ รพ. โดยด่วน")
+
+# elif ติดเชื้อ == "ไม่ติดเชื้อ": #false
+#     print("คุณไม่มีเชื้อโรค")
+
+# else:
+#     print("ยังไม่ได้ตรวจสอบ")
+# ติดเชื้อ = True
+# while True:
+#     รับยา = input("ท่านต้องการรับยาแก้เชื้อหรือไม่ (Yes(Y)/No(N))")
+#     if รับยา == "Y":
+#         print("คุณได้รับยาแก้เชื้อโรค")
+#         # ติดเชื้อ = False
+#         break
+    
+#     else :
+#         print("กรุณารับยารักษาก่อนคะ")
+
 
