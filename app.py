@@ -33,7 +33,7 @@ def callback():
 
     return 'OK'
 
-
+from basic_python.virus import virus_app  ## import function เข้ามา
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     REPLYTOKEN = event.reply_token
@@ -41,8 +41,9 @@ def handle_message(event):
     USER_ID = event.source.user_id
     # print(REPLYTOKEN ,"  -  ", TEXT_FROM_USER ,"  -  ", USER_ID)
     # process text and return text to reply
+    TEXT_TO_REPLY = virus_app(userid=USER_ID,text_input=TEXT_FROM_USER)
     line_bot_api.reply_message(event.reply_token
-                               ,TextSendMessage(text=event.message.text))
+                               ,TextSendMessage(text=TEXT_TO_REPLY))
 
 @handler.add(FollowEvent)
 def greeting(event):
