@@ -59,9 +59,12 @@ def handle_message(event):
 
 @handler.add(FollowEvent)
 def greeting(event):
+    USER_ID = event.source.user_id
     line_bot_api.reply_message(event.reply_token
                              ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
-
+    
+    line_bot_api.link_rich_menu_to_user(user_id = USER_ID,
+                                        rich_menu_id = "richmenu-0e649c2b2c13a520f8a822251e6ef7e0")
 
 
 if __name__ == "__main__":
