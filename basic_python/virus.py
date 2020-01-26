@@ -94,7 +94,9 @@ def virus_app(userid , text_input):
             return "กรุณาระบุชื่อไวรัส"
         
         else :
-            return "กรุณากรอกตัวเลขใหม่ด้วยคะ คำสั่ง 1-4"
+            from .main_menu import main_menu_message
+            flex_message = main_menu_message()
+            return flex_message
         
     elif user_database[userid]["session"] == "DELETE_VIRUS":
         ## validate (text from user)

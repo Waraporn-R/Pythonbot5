@@ -50,15 +50,17 @@ def handle_message(event):
     # print(REPLYTOKEN ,"  -  ", TEXT_FROM_USER ,"  -  ", USER_ID)
     # process text and return text to reply
     TEXT_TO_REPLY = virus_app(userid=USER_ID,text_input=TEXT_FROM_USER)
-    print(TEXT_TO_REPLY)
-    line_bot_api.reply_message(event.reply_token
-                               ,TextSendMessage(text=TEXT_TO_REPLY))
+    if isinstance(TEXT_TO_REPLY , str):
+        line_bot_api.reply_message(event.reply_token
+                                ,TextSendMessage(text=TEXT_TO_REPLY))
+    else :
+        line_bot_api.reply_message(event.reply_token
+                                ,TEXT_TO_REPLY)
 
 @handler.add(FollowEvent)
 def greeting(event):
     line_bot_api.reply_message(event.reply_token
                              ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
-
 
 
 
