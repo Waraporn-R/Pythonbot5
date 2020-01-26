@@ -53,15 +53,23 @@ def handle_message(event):
     if isinstance(TEXT_TO_REPLY , str):
         line_bot_api.reply_message(event.reply_token
                                 ,TextSendMessage(text=TEXT_TO_REPLY))
+    
+    elif isinstance(TEXT_TO_REPLY , dict):
+        from basic_python.utils.reply import reply_msg
+        reply_msg(reply_token=REPLYTOKEN,data=TEXT_TO_REPLY,bot_access_key=access_token)
+    
     else :
         line_bot_api.reply_message(event.reply_token
                                 ,TEXT_TO_REPLY)
 
+from basic_python.main_menu import greeting_message
 @handler.add(FollowEvent)
 def greeting(event):
     USER_ID = event.source.user_id
+    TEXT_TO_REPLY = greeting_message()
+    TEXT_TO_REPLY_2 = TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก")
     line_bot_api.reply_message(event.reply_token
-                             ,TextSendMessage(text="ยินดีต้อนรับสู่ฐานข้อมูล ไวรัส ของโลก \n\nกรุณาเลือกคำสั่งด้วยคะ \nเพิ่มฐานข้อมูลไวรัส(1)\nลบฐานข้อมูลไวรัส(2)\nเปลี่ยนแปลงข้อมูล(3)\nเรียกดูข้อมูลไวรัส(4)\nออกจากโปรแกรม(E)"))
+                             ,messages=[TEXT_TO_REPLY,TEXT_TO_REPLY_2])
     
     line_bot_api.link_rich_menu_to_user(user_id = USER_ID,
                                         rich_menu_id = "richmenu-0e649c2b2c13a520f8a822251e6ef7e0")

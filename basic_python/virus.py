@@ -59,6 +59,15 @@
 
 user_database = {}
 from .match_fuzzy import match_fuzzy
+from .utils.csvFinder import csvFinder
+from .msgflex.flex import flex_find_row , make_carousel
+from .utils.reply import SetMessage_Object
+from linebot.models import *
+
+CSV = csvFinder(csvPath="basic_python\CSVs\รายการบ้านสองชั้น.csv")
+CSV.set_finding_column("รายการ")
+CSV.add_stop_word("อยากทราบ","ครับ","ค่ะ")
+
 Virus_database =    {
                     "Corona SARS" : {"ระบาดใน":"ไทย" 
                                   , "จำนวนคนที่ติดเชื้อ" : 100 
@@ -93,10 +102,41 @@ def virus_app(userid , text_input):
             print("hello")
             return "กรุณาระบุชื่อไวรัส"
         
+        elif text_input == "เข้าสู่เมนู CSV Search":
+            user_database[userid]["session"] = "CSV_FINDER"
+            return "ท่านได้เข้าสู่เมนูการค้นหาข้อมูลจากไฟล์ Excel , CSV \n กรุณาระบุ Keyword ที่ท่านต้องการค้นหา"
+        
         else :
             from .main_menu import main_menu_message
             flex_message = main_menu_message()
             return flex_message
+    
+    elif user_database[userid]["session"] == "CSV_FINDER":
+        if text_input == "ออกจากการค้นหา":
+            user_database[userid]["session"] = None
+            return "ท่านได้ออกจากเมนูค้นหาไฟล์ CSV"
+        
+        else:
+            result = CSV.find_row(text_input,limit=5)  #ทำการค้นหาแล้วส่งค่ากลับเป็น ข้อมูลผลลัพ
+            
+            all_bubbles = []
+            for each in result:
+                แถวที่พบ = each["true_row"]
+                คำที่ค้นหา = text_input
+                คะแนนความเที่ยงตรง = each["score"]
+                คอลัมน์ที่ค้นพบคำนี้ = each["col_name"]
+
+                รายการที่ค้นพบ = each["result"]  #dictionary
+
+                bubble = flex_find_row(แถวที่พบ,คำที่ค้นหา,คะแนนความเที่ยงตรง,คอลัมน์ที่ค้นพบคำนี้,รายการที่ค้นพบ)
+                all_bubbles.append(bubble)
+
+            flex_to_reply = make_carousel(all_bubble = all_bubbles)
+            flex_to_reply = SetMessage_Object(Message_data=flex_to_reply)
+            # print(type(flex_to_reply))
+            # TEXT_TO_REPLY_2 = TextSendMessage(text="ท่านสามารถพิมพ์คีย์เวิดในการค้นหาต่อไปได้ หรือหากต้องการหยุด ให้พิมพ์ว่า 'ออกจากการค้นหา'")
+            return flex_to_reply
+            
         
     elif user_database[userid]["session"] == "DELETE_VIRUS":
         ## validate (text from user)
